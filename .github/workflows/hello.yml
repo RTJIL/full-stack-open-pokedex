@@ -17,4 +17,4 @@ jobs:
           echo "$(date)"
       - name: Show current dir
         run: |
-          echo "$(ls)"
+          echo "$(ls -l)"
