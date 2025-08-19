@@ -15,8 +15,8 @@ describe('Pokedex', () => {
   })
 
   test('pokemon page can be navigated to', async ({ page }) => {
-    const link = await page.getByRole('link').all()
-    await link[0].click()
+    const link = page.getByRole('link', { name: 'bulbasaur' })
+    await link.click()
 
     const expectedText = 'bulbasaur'
     await expect(page.getByText(expectedText)).toBeVisible()
