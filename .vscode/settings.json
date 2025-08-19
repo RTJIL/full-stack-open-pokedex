@@ -1,0 +1,5 @@
+{
+  "jest.pathToConfig": "package.json",
+  "jest.testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.jsx?$",
+  "jest.exclude": ["e2e-tests/**"]
+}
