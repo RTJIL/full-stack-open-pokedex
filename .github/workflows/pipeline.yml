@@ -64,16 +64,17 @@ jobs:
           curl -v "$deploy_url"
 
   tag_release:
-     runs-on: ubuntu-latest
-     needs: [render_deploy]
-     permissions:
+    runs-on: ubuntu-latest
+    needs: [render_deploy]
+    permissions:
       contents: write
-     steps:
+    steps:
       - uses: actions/checkout@v4
       - name: Bump version and push tag
         uses: anothrNick/github-tag-action@master
         with:
-         initial_version: 0.0.0
+          initial_version: 0.0.0
+          fetch-depth: '0'
         env:
-         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-         DEFAULT_BUMP: patch
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: patch
