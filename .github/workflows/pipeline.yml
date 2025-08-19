@@ -6,9 +6,16 @@ on:
       - rtjil-de
   pull_request:
     branches: [main]
-    types: [opened, synchronize]
+    types: [opened, synchronize, closed]
 
 jobs:
+  meta:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show Github Context
+        run: |
+          echo "Event: ${{ github.event_name }}"
+
   simple_deployment_pipeline:
     runs-on: ubuntu-latest
     steps:
@@ -45,6 +52,7 @@ jobs:
           retention-days: 10
 
   render_deploy:
+    if: ${{ github.event_name == 'push' }}
     runs-on: ubuntu-latest
     needs: [simple_deployment_pipeline, playwright_tests]
     steps:
