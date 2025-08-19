@@ -73,7 +73,7 @@ jobs:
       - name: Bump version and push tag
         uses: anothrNick/github-tag-action@1.64.0
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
           initial_version: 0.0.0 # Start here if no previous tag exists
-          default_bump: patch # Minor, patch, or major
-          source: . # optional, defaults to repository root
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: patch
