@@ -77,7 +77,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Bump version and push tag
         if: ${{ env.CONDITION == 'false'  }}
-        uses: anothrNick/github-tag-action@master
+        uses: anothrNick/github-tag-action@e528bc2b9628971ce0e6f823f3052d1dcd9d512c
         with:
           initial_version: 0.0.0
           fetch-depth: '0'
