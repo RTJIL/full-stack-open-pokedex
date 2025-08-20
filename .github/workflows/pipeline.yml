@@ -36,6 +36,7 @@ jobs:
 
   discord_notify:
     needs: [simple_deployment_pipeline]
+    if: always()
     runs-on: ubuntu-latest
     steps:
       - name: Debug webhook
