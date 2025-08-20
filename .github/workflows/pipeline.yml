@@ -26,11 +26,40 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+
       - name: Install dependencies
         run: npm install
       - run: npm run eslint
       - run: npm run build
       - run: npm run test
+
+  discord_notify: 
+    needs: [simple_deployment_pipeline]
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Discord Success Notification
+        if: ${{ needs.simple_deployment_pipeline.result == 'success' }}
+        uses: rjstone/discord-webhook-notify@v2
+        with:
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          username: Deploy status
+          avatarUrl: https://pzayzfkambqnvlzxqlbb.supabase.co/storage/v1/object/public/messenger-sm/butlet_bot.png
+          text: ✅Deploy succeed
+          severity: info
+          color: '#00ff84ff'
+          title: Built and ready
+
+      - name: Discord Failure Notification
+        if: ${{ needs.simple_deployment_pipeline.result == 'failure' }}
+        uses: rjstone/discord-webhook-notify@v2
+        with:
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          username: Deploy status
+          avatarUrl: https://pzayzfkambqnvlzxqlbb.supabase.co/storage/v1/object/public/messenger-sm/butlet_bot.png
+          text: ⛔Deployed failed Commit -> ${{ github.sha }} Author -> ${{ github.actor }}
+          severity: error
+          color: '#ff3c00ff'
+          title: Build failed
 
   playwright_tests:
     timeout-minutes: 10
