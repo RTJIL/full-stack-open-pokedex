@@ -51,7 +51,7 @@ jobs:
         with:
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
           username: Deploy status
-          avatarUrl: https://pzayzfkambqnvlzxqlbb.supabase.co/storage/v1/object/public/messenger-sm/butlet_bot.png
+          avatarUrl: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
           text: ✅Deploy succeed
           severity: info
           color: '#00ff84'
@@ -80,7 +80,7 @@ jobs:
             Job: ${{ github.job }}
             Run URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           severity: error
-          color: '#ff3c00ff'
+          color: '#ff3c00'
           title: Build failed
 
   playwright_tests:
