@@ -34,20 +34,28 @@ jobs:
       - run: npm run test
 
   discord_notify: 
-    needs: [simple_deployment_pipeline]
-    runs-on: ubuntu-latest
-    steps: 
+     needs: [simple_deployment_pipeline]
+     runs-on: ubuntu-latest
+     steps: 
+      - name: Debug webhook
+        run: |
+         if [ -z "${{ secrets.DISCORD_WEBHOOK }}" ]; then
+          echo "❌ Secret is empty or not passed"
+         else
+          echo "✅ Secret exists (not showing for security)"
+         fi
+
       - name: Discord Success Notification
         if: ${{ needs.simple_deployment_pipeline.result == 'success' }}
         uses: rjstone/discord-webhook-notify@v2
         with:
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-          username: Deploy status
-          avatarUrl: https://pzayzfkambqnvlzxqlbb.supabase.co/storage/v1/object/public/messenger-sm/butlet_bot.png
-          text: ✅Deploy succeed
-          severity: info
-          color: '#00ff84ff'
-          title: Built and ready
+         webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+         username: Deploy status
+         avatarUrl: https://pzayzfkambqnvlzxqlbb.supabase.co/storage/v1/object/public/messenger-sm/butlet_bot.png
+         text: ✅Deploy succeed
+         severity: info
+         color: '#00ff84ff'
+         title: Built and ready
 
       - name: Discord Failure Notification
         if: ${{ needs.simple_deployment_pipeline.result == 'failure' }}
