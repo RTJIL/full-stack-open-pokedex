@@ -20,5 +20,5 @@ jobs:
           url: https://full-stack-open-pokedex-kijo.onrender.com
           follow-redirect: false
           max-attempts: 3
-          retry-delay: 5s
+          retry-delay: 60s
           retry-all: false
