@@ -51,10 +51,10 @@ jobs:
         with:
          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
          username: Deploy status
-         avatarUrl: https://pzayzfkambqnvlzxqlbb.supabase.co/storage/v1/object/public/messenger-sm/butlet_bot.png
+        #  avatarUrl: https://pzayzfkambqnvlzxqlbb.supabase.co/storage/v1/object/public/messenger-sm/butlet_bot.png
          text: ✅Deploy succeed
          severity: info
-         color: '#00ff84ff'
+         color: '#00ff84'
          title: Built and ready
 
       - name: Discord Failure Notification
