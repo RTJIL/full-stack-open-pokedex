@@ -71,8 +71,11 @@ jobs:
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
           username: Deploy status
           avatarUrl: https://pzayzfkambqnvlzxqlbb.supabase.co/storage/v1/object/public/messenger-sm/butlet_bot.png
-          text: |
-            ⛔ Deployment failed!
+          text: ⛔ Deployment failed!
+          severity: error
+          color: '#ff3c00'
+          title: Build failed
+          description: |
             Branch: ${{ github.ref }}
             Commit: ${{ github.sha }}
             Commit URL: ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}
@@ -81,9 +84,6 @@ jobs:
             Workflow: ${{ github.workflow }}
             Job: ${{ github.job }}
             Run URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          severity: error
-          color: '#ff3c00'
-          title: Build failed
 
   playwright_tests:
     timeout-minutes: 10
