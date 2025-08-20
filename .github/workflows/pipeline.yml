@@ -32,6 +32,7 @@ jobs:
       - run: npm run eslint
       - run: npm run build
       - run: npm run test
+      - run: exit 1
 
   discord_notify:
     needs: [simple_deployment_pipeline]
