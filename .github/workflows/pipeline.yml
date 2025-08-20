@@ -32,22 +32,37 @@ jobs:
       - run: npm run eslint
       - run: npm run build
       - run: npm run test
+      # - run: exit 1
 
-  discord_notify: 
+  discord_notify:
     needs: [simple_deployment_pipeline]
+    if: always()
     runs-on: ubuntu-latest
-    steps: 
+    steps:
+      - name: Debug webhook
+        run: |
+          if [ -z "${{ secrets.DISCORD_WEBHOOK }}" ]; then
+           echo "❌ Secret is empty or not passed"
+          else
+           echo "✅ Secret exists (not showing for security)"
+          fi
+
       - name: Discord Success Notification
         if: ${{ needs.simple_deployment_pipeline.result == 'success' }}
         uses: rjstone/discord-webhook-notify@v2
         with:
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
           username: Deploy status
-          avatarUrl: https://pzayzfkambqnvlzxqlbb.supabase.co/storage/v1/object/public/messenger-sm/butlet_bot.png
+          avatarUrl: https://pzayzfkambqnvlzxqlbb.supabase.co/storage/v1/object/public/messenger-sm/butlet_bot%20(1).jpg
           text: ✅Deploy succeed
           severity: info
-          color: '#00ff84ff'
+          color: '#00ff84'
           title: Built and ready
+          description: |
+            📦 Repo: [${{ github.repository }}](${{ github.server_url }}/${{ github.repository }})
+            👤 Actor: ${{ github.actor }}
+            🔀 Branch: ${{ github.ref }}
+            🔗 Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
       - name: Discord Failure Notification
         if: ${{ needs.simple_deployment_pipeline.result == 'failure' }}
@@ -56,8 +71,11 @@ jobs:
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
           username: Deploy status
           avatarUrl: https://pzayzfkambqnvlzxqlbb.supabase.co/storage/v1/object/public/messenger-sm/butlet_bot.png
-          text: |
-            ⛔ Deployment failed!
+          text: ⛔ Deployment failed!
+          severity: error
+          color: '#ff3c00'
+          title: Build failed
+          description: |
             Branch: ${{ github.ref }}
             Commit: ${{ github.sha }}
             Commit URL: ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}
@@ -66,9 +84,6 @@ jobs:
             Workflow: ${{ github.workflow }}
             Job: ${{ github.job }}
             Run URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          severity: error
-          color: '#ff3c00ff'
-          title: Build failed
 
   playwright_tests:
     timeout-minutes: 10

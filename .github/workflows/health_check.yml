@@ -1,0 +1,21 @@
+name: Health Check
+
+on:
+  push:
+    branches: [rtjil-de, main]
+  schedule:
+    - cron: '*/10 * * * *'
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check the deployed service URL
+        uses: jtalk/url-health-check-action@v4
+        with:
+          # URL to check
+          url: https://full-stack-open-pokedex-kijo.onrender.com/
+          follow-redirect: false
+          max-attempts: 3
+          retry-delay: 5s
+          retry-all: false
