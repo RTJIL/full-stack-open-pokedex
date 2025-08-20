@@ -83,7 +83,7 @@ jobs:
           fetch-depth: '0'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DEFAULT_BUMP: patch
+          DEFAULT_BUMP: minor
 
   a_test_job:
     runs-on: ubuntu-latest
