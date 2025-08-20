@@ -5,6 +5,9 @@ on:
     branches: [rtjil-de, main]
   schedule:
     - cron: '30 5 * * *'
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, closed]
 
 jobs:
   ping:
