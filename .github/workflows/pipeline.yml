@@ -51,7 +51,7 @@ jobs:
         with:
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
           username: Deploy status
-          avatarUrl: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
+          avatarUrl: https://pzayzfkambqnvlzxqlbb.supabase.co/storage/v1/object/public/messenger-sm/butlet_bot.jpg
           text: ✅Deploy succeed
           severity: info
           color: '#00ff84'
