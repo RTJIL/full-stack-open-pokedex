@@ -4,7 +4,7 @@ on:
   push:
     branches: [rtjil-de, main]
   schedule:
-    - cron: '*/10 * * * *'
+    - cron: '30 5 * * *'
 
 jobs:
   ping:
