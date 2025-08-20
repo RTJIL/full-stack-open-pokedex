@@ -60,14 +60,15 @@ jobs:
             ⛔ Deployment failed!
             Branch: ${{ github.ref }}
             Commit: ${{ github.sha }}
+            Commit URL: ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}
             Message: ${{ github.event.head_commit.message }}
             Author: ${{ github.actor }}
             Workflow: ${{ github.workflow }}
             Job: ${{ github.job }}
             Run URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-            severity: error
-            color: '#ff3c00ff'
-            title: Build failed
+          severity: error
+          color: '#ff3c00ff'
+          title: Build failed
 
   playwright_tests:
     timeout-minutes: 10
