@@ -1,10 +1,9 @@
 name: Health Check
 
 on:
- push:
-  branches:
-    - rjtil-de
- schedule:
+  push:
+    branches: [rtjil-de, main]
+  schedule:
     - cron: '*/10 * * * *'
 
 jobs:
